@@ -1,0 +1,54 @@
+# error You might want to run 'apt --fix-broken install' to correct these.
+
+sudo apt-get -f install
+
+sudo apt-get update
+
+sudo apt-get -f install
+
+sudo dpkg --configure -a
+
+sudo apt-get clean
+
+# error 'latin-1' codec can't encode characters in position 0-5: ordinal not in range(256)
+
+Пробема с локалью на сервере, нужно установить русскую 
+
+sudo apt-get install language-pack-ru
+
+sudo update-locale LANG=ru_RU.UTF-8
+
+locale 
+
+reboot now
+
+# проблемы с мониторами
+sudo apt-get purge nvidia*
+sudo reboot
+sudo apt-get update
+sudo ubuntu-drivers autoinstall
+
+# смена часового пояса 
+timedatectl
+timedatectl list-timezones
+sudo timedatectl set-timezone your_time_zone
+
+# ---- CRON ------- 
+sudo crontab -e
+
+* * * * * 
+min hour day month day_week
+
+# start python 
+
+* * * * * /usr/bin/python3 /path_to_file.py
+
+# ----- BAN ip --------
+https://1cloud.ru/help/security/ispolzovanie-iptables-na-linux
+
+sudo apt-get install iptables
+iptables -t filter -A INPUT -s 34.217.93.117 -j REJECT
+
+iptables -t filter --list
+
+

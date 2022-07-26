@@ -1,0 +1,5 @@
+# прокси в requests
+pip install urllib3==1.25.11
+
+# flask-sql
+pip install mysqlclient

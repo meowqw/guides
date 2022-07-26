@@ -1,0 +1,65 @@
+### SCREEN ###
+# start script
+
+apt install screen
+
+screen -S tg python3 /home/tg/tg/bot.py
+
+иногда screen -L
+
+# resume 
+
+screen -r
+
+#quit
+
+screen -X -S "tg" quit
+
+свернуть 
+
+ctrl + A D
+
+### SYSTEMCTL ###
+# install venv 
+apt-get install python3.8-dev python3.8-venv
+# create venv
+python3.8 -m venv .venv
+# activate venv
+source /home/bot_notification/.venv/bin/activate
+
+# installing all packages
+
+# test bot 
+/home/bot_notification/.venv/bin/python /home/bot_notification/bot.py
+
+# create service file 
+sudo nano /etc/systemd/system/tgbot.service
+
+*****************
+[Unit]
+Description=Telegram Bot
+After=network.target
+
+[Service]
+User=root
+Group=root
+
+WorkingDirectory=/var/www/pharmacy/
+Environment="PYTHONPATH=/var/www/pharmacy/"
+ExecStart=/var/www/pharmacy/.venv/bin/python /var/www/pharmacy/bot/__init__.py
+
+[Install]
+WantedBy=multi-user.target
+****************
+
+# start systemctl
+sudo systemctl daemon-reload
+
+sudo systemctl enable tgbot
+sudo systemctl start tgbot
+sudo systemctl status tgbot
+
+
+
+
+

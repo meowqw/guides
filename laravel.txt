@@ -1,0 +1,108 @@
+# установка (должен быть установлен коспозер)
+composer global require laravel/laravel
+
+# создание проекта
+composer create-project --prefer-dist laravel/laravel PROJECT_NAME
+
+# страрт сервера
+php artisan serve
+
+# установка зависимостей (package.json)
+
+	# если не установлен node js
+	curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
+	sudo apt install nodejs
+	node -v
+	sudo apt install npm
+
+npm install | npm i
+
+# запустить все mix задачи (фронт)
+npm run dev
+
+# создать контроллер 
+php artisan make:controller MainController
+
+# очистка кэша
+php artisan config:cache
+
+# создание модели и миграции
+php artisan make:model OrdersModel -m
+
+# провести миграция
+php artisan migrate
+
+# сбросить данные миграции
+php artisan migrate:reset
+
+# авторизация 
+composer require laravel/ui
+php artisan ui vue --auth
+php artisan migrate
+
+
+# ----- LARAVEL APACHE -----
+
+sudo systemctl status apache2
+sudo apt install apache2
+sudo ufw allow “Apache Full”
+
+sudo apt install php libapache2-mod-php php-mbstring php-xmlrpc php-soap php-gd php-xml php-cli php-zip php-bcmath php-tokenizer php-json php-pear php-mysql
+
+sudo nano /var/www/html/test.php
+
+***************
+<?php
+phpinfo();
+?>
+****************
+open http://Your-serverIP/test.php
+
+# instal composer
+
+sudo apt install curl
+curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+sudo chmod +x /usr/local/bin/composer
+
+# install laravel
+
+composer create-project --prefer-dist laravel/laravel [project_name]
+
+# перемещаем проект в /var/www/html/
+
+sudo mv name_pr /var/www/html/
+
+sudo chgrp -R www-data /var/www/html/name_pr/
+sudo chmod -R 775 /var/www/html/name_pr/storage
+
+cd /etc/apache2/sites-available
+sudo nano laravel_project.conf
+
+
+***********************
+<VirtualHost *:80>
+   ServerName thedomain.com
+   ServerAdmin webmaster@thedomain.com
+   DocumentRoot /var/www/html/example/public
+
+   <Directory /var/www/html/example>
+       AllowOverride All
+   </Directory>
+   ErrorLog ${APACHE_LOG_DIR}/error.log
+   CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+**************************
+
+sudo a2dissite 000-default.conf
+sudo a2ensite laravel_project
+sudo a2enmod rewrite
+sudo systemctl restart apache2
+
+# создать пользователя в базе 
+php artisan tinker
+DB::table('users')->insert(['name'=>'admin','email'=>'devupteam@gmail.com','password'=>Hash::make('3uK0Pgw9')])
+
+#  -------------- ПРОБЛЕМЫ С МИГРАЦИЕЙ --------------
+sudo apt-get --purge remove php-common
+sudo apt-get install php-common php-mysql php-cli

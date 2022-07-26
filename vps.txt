@@ -1,0 +1,58 @@
+
+#node_bot
+178.20.44.163
+root
+h6gVNyEs4Ya9yKYb
+
+
+
+
+
+# --- flashscore ---
+
+80.89.238.199
+root
+eNHvUYzF8I45
+
+# --- balls center ---
+
+89.111.132.88
+root
+Root2021
+
+# --- balls firstvps ---
+
+62.109.29.117
+root
+ySD68mgIOqXS
+
+# --- tg ---
+
+149.154.67.6
+root
+m6Zts6ugv8pO
+
+# --- news ----
+
+185.233.39.26
+root
+894L4gSsLmgN
+
+# --- tg-checker ---
+
+83.220.175.148
+root
+422f5vVfly54
+
+# --- bot_flashscore_baseball ---
+
+82.146.47.204
+root
+2QSOuG97qqw9
+
+# --- manage_bot ---
+
+82.146.43.63
+root
+oM4gY6wS1hwU
+

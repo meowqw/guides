@@ -1,0 +1,127 @@
+sudo apt update
+
+sudo apt install apache2
+
+sudo ufw allow 'Apache'
+
+sudo systemctl status apache2
+
+sudo apt-get install libapache2-mod-wsgi-py3 python3-dev
+
+
+mkdir webApp
+
+cd webApp
+
+mkdir webApp
+
+
+sudo apt-get install python3-pip
+
+pip3 install flask
+
+pip3 install flask_sqlalchemy (опционально)
+
+"""
+Логинимся через ftp и кидаем в /var/www/webApp/webApp/ (создаем папку webApp
+в папке webApp) файлы проекта
+"""
+
+
+
+
+sudo nano /etc/apache2/sites-available/webApp.conf
+
+
+
+*****
+<VirtualHost *:80>
+		ServerName your_ip
+		ServerAdmin email@example.com
+		WSGIScriptAlias / /var/www/webApp/webapp.wsgi
+		<Directory /var/www/webApp/webApp/>
+			Order allow,deny
+			Allow from all
+		</Directory>
+		Alias /static /var/www/webApp/webApp/static
+		<Directory /var/www/webApp/webApp/static/>
+			Order allow,deny
+			Allow from all
+		</Directory>
+		ErrorLog ${APACHE_LOG_DIR}/error.log
+		LogLevel warn
+		CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+*****
+
+--------------SSL-----------------------
+*********
+<VirtualHost *:80>
+                ServerAlias www.wowgalaxy.org
+                ServerAdmin email@exampleple.com
+                ServerName wowgalaxy.org
+                WSGIScriptAlias / /var/www/wow/wow.wsgi
+                <Directory /var/www/wow/>
+                        Order allow,deny
+                        Allow from all
+                </Directory>
+                Alias /static /var/www/wow/static
+                <Directory /var/www/wow/static/>
+                        Order allow,deny
+                        Allow from all
+                </Directory>
+                ErrorLog ${APACHE_LOG_DIR}/error.log
+                LogLevel warn
+                CustomLog ${APACHE_LOG_DIR}/access.log combined
+                Redirect permanent / https://wowgalaxy.org
+</VirtualHost>
+
+
+<VirtualHost *:443>
+                ServerName wowgalaxy.org
+                ServerAlias www.wowgalaxy.org
+                ServerAdmin email@example.com
+                SSLCertificateFile /var/www/wow/ssl/ssl.crt
+                SSLCertificateKeyFile /var/www/wow/ssl/ssl.key
+                SSLCertificateChainFile /var/www/wow/ssl/ssl.ca-bundle
+                WSGIScriptAlias / /var/www/wow/wow.wsgi
+                <Directory /var/www/wow/>
+                        Order allow,deny
+                        Allow from all
+                </Directory>
+                Alias /static /var/www/wow/static
+                <Directory /var/www/wow/static/>
+                        Order allow,deny
+                        Allow from all
+                </Directory>
+                ErrorLog ${APACHE_LOG_DIR}/error.log
+                LogLevel warn
+                CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+*******
+
+sudo a2enmod ssl
+
+-----------SSL END--------------------------------------
+
+sudo a2ensite webApp
+
+systemctl reload apache2
+
+sudo nano webapp.wsgi
+
+
+
+*****
+#!/usr/bin/python3
+import sys
+import logging
+logging.basicConfig(stream=sys.stderr)
+sys.path.insert(0,"/var/www/webApp/")
+
+from webApp import app as application
+application.secret_key = 'secret'
+*****
+
+# если главая страница это страница flask
+sudo a2dissite 000-default.conf (опционально)

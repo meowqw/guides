@@ -1,0 +1,46 @@
+<VirtualHost *:80>
+                ServerAlias 195.123.220.196
+                ServerAdmin email@exampleple.com
+                ServerName 195.123.220.196
+                DocumentRoot /var/www/html
+                ErrorLog ${APACHE_LOG_DIR}/error.log
+                LogLevel warn
+                FallbackResource /routes.php
+                CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+<VirtualHost *:443>
+                ServerName localhost
+                ServerAlias www.localhost
+                ServerAdmin email@example.com
+                SSLCertificateFile /var/www/html/ssl/ssl.crt
+                SSLCertificateKeyFile /var/www/html/ssl/ssl.key
+                SSLCertificateChainFile /var/www/html/ssl/ssl.ca-bundle
+                DocumentRoot /var/www/html
+                FallbackResource /routes.php
+                ErrorLog ${APACHE_LOG_DIR}/error.log
+                LogLevel warn
+                CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+
+
+sudo apt update
+
+sudo apt install apache2
+
+sudo ufw allow 'Apache'
+
+sudo systemctl status apache2
+
+sudo apt-get install apache2 php libapache2-mod-php7.2 mysql-server php-mbstring php7.2-mbstring phpmyadmin
+
+sudo service apache2 restart
+
+sudo nano /etc/apache2/sites-available/webApp.conf
+
+sudo a2enmod ssl
+
+sudo a2ensite webApp
+
+systemctl reload apache2

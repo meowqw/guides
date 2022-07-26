@@ -1,0 +1,53 @@
+# УСТАНОВКА (сайт с гайдами https://edu.fors.ru/ugolok-professora/ustanovka-i-nastroyka-postgresql-10-na-linux-/)
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+
+# подключение как сис админ
+su - postgres
+# запуск консоли
+psql
+
+# задать пароль для postgres
+\password postgres
+
+# создать нового пользователя
+ create user testuser with password 'passw';
+
+# создать бд
+create database testdb;
+
+# дать права доступа к бд
+grant all privileges on database testdb to testuser;
+
+# выход
+\q
+
+# сменить базу данных
+su - postgres
+
+# войти в бд под определенным пользователем 
+psql -U<USERNAME> -h<HOSTNAME> -d<DB_NAME>
+
+# auto_increment(sequence)
+CREATE SEQUENCE id;
+ALTER TABLE table ALTER id SET DEFAULT NEXTVAL('id');
+GRANT USAGE, SELECT ON SEQUENCE id TO user;
+
+
+# PHPPGMYADMIN
+
+sudo apt install phppgadmin
+
+sudo nano /etc/apache2/conf-available/phppgadmin.conf
+
+меняем Require local на Require all granted
+
+sudo apachectl configtest
+
+sudo systemctl restart apache2
+
+sudo ufw allow http
+sudo ufw allow https
+
+# елси not found
+sudo ln -s /usr/share/phppgadmin /var/www/html/phppgadmin

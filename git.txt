@@ -1,0 +1,39 @@
+git config --global user.name ""
+git config --global user.email  ""
+git init
+
+загрузить с репозитория 
+git clone ссылка на репозиторий
+
+загрузить в репозиторий
+
+git unit
+git add .
+git branch -M main 
+git commit -m 'text'
+git push -u название репозитория main
+
+вводим username
+и токен 
+
+загрузить изменения
+git init
+git pull 
+
+# посмотреть подключения 
+git remote -v
+
+# сменить репозиторий 
+git remote set-url origin *new_link*
+
+
+# push
+git remote add origin https://github.com//test_rep.git
+git branch -M main
+git push -u origin main
+
+
+# auth 
+git remote add origin https://jimhalpert466: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@github.com/jimhalpert466/helper.git
+git branch -M main
+git push -u origin main

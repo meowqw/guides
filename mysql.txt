@@ -1,0 +1,75 @@
+
+# --- На случай если кириллица не работает --- 
+
+У базы и таблицы должна быть кодировка utf8mb4
+
+ТАБЛИЦА
+ALTER TABLE таблица MODIFY поле VARCHAR(300) CHARSET utf8mb4 null;
+ALTER TABLE events MODIFY location VARCHAR(300) CHARSET utf8mb4 null;
+
+БАЗА
+ALTER DATABASE tg CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+
+# ------------- установка ------------------
+
+sudo apt update
+
+sudo apt install ufw
+
+sudo ufw allow OpenSSH
+
+sudo ufw enable
+
+sudo apt install mysql-server
+
+sudo mysql_secure_installation
+
+# ----------- удаление --------------
+
+sudo systemctl stop mysqld
+
+sudo apt remove mysql-server mysql-common mysql-server-core-* mysql-client-core-*
+
+sudo apt purge mysql-server mysql-common mysql-server-core-* mysql-client-core-*
+
+sudo rm -Rf /var/lib/mysql/
+
+sudo rm -Rf /etc/mysql/
+
+sudo deluser --remove-home mysql
+
+sudo delgroup mysql
+
+sudo apt purge mysql-apt-config
+
+
+# обнлвление
+sudo service mysql restart
+
+# открыть
+sudo mysql
+sudo mysql -u root
+
+# добавить польщвоателя
+CREATE USER 'user'@'localhost' IDENTIFIED BY 'Neet2001';
+
+
+# дата права доступа пользователю
+GRANT ALL PRIVILEGES ON manage.* TO 'user'@'localhost';
+
+
+# замена пароля
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '5g<>9ZVc'
+
+# сохрвнение ихменений
+FLUSH PRIVILEGES;
+
+# PHPMYADMIN
+sudo apt -y install php-mbstring
+sudo apt-get install phpmyadmin php-mbstring php-gettext
+
+# если not found
+sudo ln -s /etc/phpmyadmin/apache.conf /etc/apache2/conf-available/phpmyadmin.conf
+sudo a2enconf phpmyadmin.conf
+sudo systemctl restart apache2
