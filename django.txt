@@ -32,6 +32,7 @@ python manage.py startapp main
 
 # makemigrate
 python manage.py makemigrates
+python3 manage.py makemigrations "appname"
 
 # migrate 
 python manage.pu migrate
