@@ -44,9 +44,9 @@ After=network.target
 User=root
 Group=root
 
-WorkingDirectory=/var/www/pharmacy/
-Environment="PYTHONPATH=/var/www/pharmacy/"
-ExecStart=/var/www/pharmacy/.venv/bin/python /var/www/pharmacy/bot/__init__.py
+WorkingDirectory=/var/www/rBot/
+Environment="PYTHONPATH=/var/www/rBot/"
+ExecStart=/var/www/rBot/.venv/bin/python /var/www/rBot/sale.py
 
 [Install]
 WantedBy=multi-user.target

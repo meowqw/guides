@@ -51,7 +51,3 @@ sudo ufw allow https
 
 # елси not found
 sudo ln -s /usr/share/phppgadmin /var/www/html/phppgadmin
-
-# ПРОБЛЕМА КОДИРОВОК
-
-CREATE DATABASE dbcapi WITH ENCODING='UTF8' LC_CTYPE='ru_RU.UTF-8' LC_COLLATE='ru_RU.UTF-8' OWNER=root TEMPLATE=template0;
