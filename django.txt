@@ -1,6 +1,6 @@
 sudo apt-get update
 sudo apt-get install python3-pip apache2 libapache2-mod-wsgi-py3
-
+sudo apt-get install python3-dev libmysqlclient-dev
 # venv
 sudo pip3 install virtualenv
 
@@ -44,6 +44,8 @@ python manage.pu cretesuperuser
 python manage.py collectstatic
 
 ###########################
+sudo nano /etc/apache2/sites-available/webApp.conf
+sudo a2dissite 000-default.conf
 
 <VirtualHost *:80>
         ServerName localhost

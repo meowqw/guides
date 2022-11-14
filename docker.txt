@@ -1,0 +1,184 @@
+
+# —————— BASE INFO —————— 
+# Docker start
+docker run -d -p 80:80 docker/getting-started
+
+# informations 
+docker info
+
+# info about images
+docker images
+
+# info containers 
+docker ps
+
+# stop container 
+docker stop <id>
+
+# start container 
+docker start <id>
+
+# pause container 
+docker pause <id>
+
+# unpause container 
+docker unpause <id>
+
+# restart container 
+docker restart <id>
+
+# auth in docker 
+docker login
+docker logout
+
+# —————— WORK ———————
+
+# run images 
+docker run <images name>
+
+# run images with container name  (in interactive mode)
+docker run -it --name python python
+
+# —————— DOCKER FILE ———————
+Filename: Dockerfile
+
+docker build .
+
+# build with title
+
+docker build -t my-php .
+
+# del images
+docker image rm <id>
+
+
+# —————— DOCKER COMPOSE ———————
+Filename: docker-compose.yml
+
+*******EXAMPLE******
+
+# start myadmin with php server
+
+version: '3.1'
+
+services:
+
+  php:
+    build: ./php
+    ports:
+      - 8081:80
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+
+
+*************************
+
+# run images with port
+docker run -p 3001:8001 <images name>
+
+docker run -p 8001:80 -d <images name>
+
+
+# docker COMPOSE build
+docker-compose build
+
+$ docker compose start
+docker-compose up
+
+# ———————— UPLOAD TO HUB ————————
+
+docker build -t meatqw/myphp ./php
+
+# push
+docker push meatqw/myphp:latest
+
+# pull 
+docker pull meatqw/myphp
+
+# run
+docker run -p 3001:80 --name myapp meatqw/myphp
+
+# start
+docker-compose up
+
+# stop
+docker-compose down
+
+
+# ———————— DOCKER VOLUMES ————————
+
+*******EXAMPLE******
+
+# Django with Postgres
+docker-compose.yml
+
+version: '3'
+
+services:
+  django:
+    build: .
+    container_name: django
+    command: python manage.py runserver 0.0.0.0:8000
+
+    volumes:
+      - .:/usr/src/app
+
+    ports:
+      - "8000:8000"
+
+    depends_on:
+      - pgdb
+
+  pgdb:
+    image: postgres
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+    container_name: pgdb
+
+    volumes:
+      - pgdbdata:/var/lib/postgresql/data/
+
+volumes:
+  pgdbdata: null
+
+
+
+Dockerfile
+
+FROM python:3
+WORKDIR /usr/src/app
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
+
+
+# compose with create project Django
+docker-compose run django django-admin startproject app .
+
+# migrate
+docker-compose run django python manage.py migrate
+
+# superuser
+docker-compose run django python manage.py createsuperuser
+
+*************************
+# start
+docker-compose up
+
+# stop
+docker-compose down
