@@ -1,0 +1,14 @@
+pip install djangorestframework
+
+* add <rest_framework> in INSTALLED_APPS (settings.py)
+* create serializers.py in project dir
+
+SETTINGS
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+ #       'rest_framework.renderers.BrowsableAPIRenderer',  # off doc api
+    ]
+}
+
